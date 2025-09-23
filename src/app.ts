@@ -7,6 +7,7 @@ import type {GeocodeResult} from "./utils/geocode.js";
 import {forecast} from "./utils/forecast.js";
 
 const app = express()
+const port = process.env.PORT || 3030;
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -91,6 +92,6 @@ app.get('/*splat', (req: Request, res: Response) => {
     })
 })
 
-app.listen(3030, () => {
-    console.log('Server started on port 3030')
+app.listen(port, () => {
+    console.log('Server started on port ' + port)
 })
