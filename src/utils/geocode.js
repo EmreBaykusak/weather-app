@@ -5,22 +5,21 @@ export const geocode = (city, callback) => {
         "User-Agent": "MyWeatherApp/1.0 (emre-baykusak@hotmail.com)",
         "Referer": "MyWeatherApp"
     };
-    request.get({ url, json: true, headers }, (error, { body }) => {
+    request.get({ url, json: true, headers }, (error, response) => {
         if (error) {
             callback("Failed to get a response from Nominatim API, please try again", undefined);
         }
-        else if (body.error) {
-            callback("Invalid input parameter", undefined);
-        }
-        else if (body.length === 0) {
+        else if (!response?.body || response.body.length === 0) {
             callback("Unable to find the given location. Try another search", undefined);
         }
         else {
+            const item = response.body[0];
             callback(undefined, {
-                latitude: body[0].lat,
-                longitude: body[0].lon,
-                location: body[0].display_name
+                latitude: item.lat,
+                longitude: item.lon,
+                location: item.display_name
             });
         }
     });
 };
+//# sourceMappingURL=geocode.js.map

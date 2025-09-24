@@ -2,7 +2,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 import express, {} from 'express';
 import hbs from "hbs";
+import { geocode } from "./utils/geocode.js";
+import { forecast } from "./utils/forecast.js";
 const app = express();
+const port = process.env.PORT || 3030;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // Define paths for Express config
@@ -35,9 +38,28 @@ app.get('/help', (req, res) => {
     });
 });
 app.get('/weather', (req, res) => {
-    res.send({
-        forecast: "Weather is currently sunny",
-        location: "New York"
+    const address = req.query.address;
+    if (!address || typeof address !== 'string') {
+        return res.send({
+            error: "Please enter a valid address"
+        });
+    }
+    geocode(address, (error, { latitude, longitude, location } = { latitude: "", longitude: "", location: "" }) => {
+        if (error) {
+            res.send({ error });
+            return;
+        }
+        forecast(latitude, longitude, (error, forecastData) => {
+            if (error) {
+                res.send({ error });
+                return;
+            }
+            res.send({
+                address: req.query.address,
+                forecast: forecastData,
+                location
+            });
+        });
     });
 });
 app.get('/help/*splat', (req, res) => {
@@ -54,7 +76,7 @@ app.get('/*splat', (req, res) => {
         name: 'Andrew Mead'
     });
 });
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
+app.listen(port, () => {
+    console.log('Server started on port ' + port);
 });
 //# sourceMappingURL=app.js.map
