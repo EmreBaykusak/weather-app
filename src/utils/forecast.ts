@@ -6,6 +6,7 @@ type WeatherResponse = {
         weather_descriptions: string[];
         temperature: number;
         feelslike: number;
+        humidity: number;
     };
     error?: any;
 }
@@ -20,8 +21,8 @@ export const forecast = (lat: string, lon: string, callback: WeatherStackCallbac
             callback("Invalid input parameter", undefined)
         }
         else{
-            const {weather_descriptions, temperature, feelslike} = response!.body.current;
-            callback(undefined, weather_descriptions[0] + '. It is currently ' + temperature + ' degrees out. It feels like ' + feelslike + ' degrees out.')
+            const {weather_descriptions, temperature, feelslike, humidity} = response!.body.current;
+            callback(undefined, weather_descriptions[0] + '. It is currently ' + temperature + ' degrees out. It feels like ' + feelslike + ' degrees out. The humidity is ' + humidity + 'percent.')
         }
     })
 }
