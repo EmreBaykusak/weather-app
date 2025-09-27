@@ -22,7 +22,7 @@ export const forecast = (lat: string, lon: string, callback: WeatherStackCallbac
         }
         else{
             const {weather_descriptions, temperature, feelslike, humidity} = response!.body.current;
-            callback(undefined, weather_descriptions[0] + '. It is currently ' + temperature + ' degrees out. It feels like ' + feelslike + ' degrees out. The humidity is ' + humidity + 'percent.')
+            callback(undefined, weather_descriptions[0] + '. It is currently ' + temperature + ' degrees out. It feels like ' + feelslike + ' degrees out. The humidity is ' + humidity + ' percent.')
         }
     })
 }
