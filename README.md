@@ -1,0 +1,3 @@
+# Weather App
+
+A clean and lightweight weather application built using TypeScript and Node.js. This app serves static pages using Handlebars for initial templates and fetches real-time weather data from the server based on user input (city or geolocation). It displays current conditions, a multi-day forecast, and more. Perfect for learning API integration, template rendering, and building a practical full-stack TypeScript project.
