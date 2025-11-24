@@ -1,5 +1,0 @@
-{
-  "watch": ["src", "templates", "public"],
-  "ext": "ts,json,hbs,js,css",
-  "exec": "npx ts-node src/app.ts"
-}
